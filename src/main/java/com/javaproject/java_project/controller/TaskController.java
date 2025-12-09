@@ -88,7 +88,7 @@ public class TaskController
 
 
         if (updated == null)
-            return new ResponseEntity<>("Task could not be created", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Task could not be updated", HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(updated, HttpStatus.CREATED);
     }
