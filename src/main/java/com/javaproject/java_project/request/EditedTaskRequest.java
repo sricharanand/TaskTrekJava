@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class EditedTaskRequest
 {
-    private String title;
+    private String name;
     private String description;
     private LocalDateTime deadline;
 
