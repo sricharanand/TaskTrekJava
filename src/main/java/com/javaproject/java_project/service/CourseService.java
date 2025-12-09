@@ -55,12 +55,13 @@ public class CourseService {
         // check if name already exists in the courses, if so, return NULL (course name taken)
         for(Course course : courses)
         {
-            if (courseName.equals(course.getCourseName()))
+            if (courseName.equals(course.getCourseName()) && course.getUserId() == currentUser.getId())
                 return null;
         }
 
         Course newcourse = Course.builder()
-                .courseId(nextID)
+                .courseId(nextID++)
+                .userId(currentUser.getId())
                 .courseName(courseName)
                 .build();
 
@@ -84,6 +85,8 @@ public class CourseService {
         // no logged-in user
         if (currentUser == null)
             return null;
+        
+        courses = currentUser.getUserCourses();
 
         for (Course course : courses)
         {
@@ -104,6 +107,8 @@ public class CourseService {
         // no logged-in user
         if (currentUser == null)
             return null;
+
+        courses = currentUser.getUserCourses();
 
         for (Course course : courses)
         {
@@ -134,6 +139,8 @@ public class CourseService {
         if (authService.getCurrentUser() == null)
             return false;
 
+        courses = currentUser.getUserCourses();
+
         Course course = getCourseByID(courseID);
         if (course == null)
             return false;
@@ -149,3 +156,4 @@ public class CourseService {
         // True if deleted
     }
 }
+
