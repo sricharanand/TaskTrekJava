@@ -5,6 +5,7 @@ import com.javaproject.java_project.repositories.UsersRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class AuthService
@@ -15,6 +16,8 @@ public class AuthService
     // In memory Database for now, Mongo later
     //private List<User> users = usersRepository.find;
     private int nextID = 1; // autoincrement this for registering users
+    
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(16);
 
     // helper so other services can know who is logged in
     // currently logged-in user (set on successful login)
@@ -34,7 +37,7 @@ public class AuthService
         User newuser = User.builder()
                 .id(nextID)
                 .username(username)
-                .passwordHash(password)
+                .passwordHash(passwordEncoder.encode(password))
                 .build();
         nextID++;
 
@@ -56,7 +59,7 @@ public class AuthService
             return null;
         }
 
-        if (user.getPasswordHash().equals(password))
+        if (passwordEncoder.matches(password, user.getPasswordHash()))
         {
             currentUser = user; // Set logged-in user
             return user;
