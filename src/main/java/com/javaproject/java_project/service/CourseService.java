@@ -59,22 +59,22 @@ public class CourseService {
                 return null;
         }
 
-        Course newcourse = Course.builder()
+        Course newCourse = Course.builder()
                 .courseId(nextID++)
                 .userId(currentUser.getId())
                 .courseName(courseName)
                 .build();
 
-        courses.add(newcourse);
+        courses.add(newCourse);
 
         if (currentUser.getUserCourses() != null)
         {
-            currentUser.getUserCourses().add(newcourse);
+            currentUser.getUserCourses().add(newCourse);
             usersRepository.save(currentUser);
         }
 
         nextID++;
-        return newcourse;
+        return newCourse;
     }
 
     // Tasks of a specific course
@@ -156,4 +156,5 @@ public class CourseService {
         // True if deleted
     }
 }
+
 
