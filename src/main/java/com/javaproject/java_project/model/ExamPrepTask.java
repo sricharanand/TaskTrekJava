@@ -1,12 +1,7 @@
 package com.javaproject.java_project.model;
 
-import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 public class ExamPrepTask extends Task {
 
