@@ -216,6 +216,10 @@ public class TaskService
         Course course = courseService.getCourseByID(courseID);
         String courseName = course.getCourseName();
 
+        // Penalty of 0.5x if the task is done late
+        if (LocalDateTime.now().isAfter(task.getDeadline()))
+            task.setMultiplier(task.getMultiplier() / 2);
+
         // award XP based on task difficulty computed earlier
         skillProgressService.awardTaskCompletionXp(courseName, task.getBaseXP(), task.getMultiplier());
 
@@ -224,3 +228,4 @@ public class TaskService
 
     }
 }
+
