@@ -20,7 +20,7 @@ public class TaskService
 
     // In memory list of tasks
     // Going to have courseID in the task
-    List<Task> tasks = new ArrayList<Task>();
+    private List<Task> tasks;
 
     private int nextID = 1; // autoincrement this for next tasks
 
@@ -37,6 +37,7 @@ public class TaskService
         this.skillProgressService = skillProgressService;
     }
 
+    /*
     public List<Task> getTasksForCourse(int courseId)
     {
         User currentUser = authService.getCurrentUser();
@@ -51,6 +52,7 @@ public class TaskService
         }
         return result;
     }
+    */
 
     public Task createTask(int courseId, String taskType, String title, String description, LocalDateTime deadline)
     {
@@ -62,9 +64,9 @@ public class TaskService
         if(currentUser == null)
             return null;
 
-        Task task;
+        Course currentCourse = courseService.getCourseByID(courseId);
 
-        switch(taskType.toUpperCase()) {
+        Task task = switch (taskType.toUpperCase()) {
 
             case "ASSIGNMENT":
                 task = AssignmentTask.builder()
@@ -121,7 +123,7 @@ public class TaskService
                         .build();
         }
         task.configureXp();
-        tasks.add(task);
+        currentCourse.getTasks().add(task);
         return task;
     }
 
@@ -155,6 +157,8 @@ public class TaskService
         if (currentUser == null)
             return null;
 
+        Course currentCourse = courseService.getCourseByID(courseID);
+
         Task taskToEdit = getTaskByID(taskID);
 
         // checking if the same courseID is used
@@ -180,6 +184,8 @@ public class TaskService
         User currentUser = authService.getCurrentUser();
         if(currentUser == null)
             return false;
+
+        Course currentCourse = courseService.getCourseByID(courseID);
 
         Task taskToDelete = getTaskByID(taskID);
 
@@ -228,4 +234,5 @@ public class TaskService
 
     }
 }
+
 
