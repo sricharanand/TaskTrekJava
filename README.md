@@ -11,9 +11,7 @@ Users can:-
 
 - Create and manage courses (via /courses)
 
-- Add and complete tasks (via /tasks)
-
-- Track XP and levels (future addition: /skills)
+- Add and complete tasks (via /tasks), earning XP and levelling up
 
 ## Tech Stack
 
