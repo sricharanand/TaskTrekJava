@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.ArrayList;
+import com.javaproject.java_project.repository.UsersRepository;
 
 @Service
 public class CourseService {
@@ -16,6 +17,7 @@ public class CourseService {
     private final AuthService authService;
 
     List<Course> courses;
+    UsersRepository usersRepository;
 
     public CourseService(AuthService authService)
     {
@@ -56,6 +58,7 @@ public class CourseService {
 
         courses.add(newCourse);
         authService.saveUsers();
+        usersRepository.save(currentUser);
 
         return newCourse;
     }
@@ -106,6 +109,7 @@ public class CourseService {
 
         course.setCourseName(newCourseName);
         authService.saveUsers();
+        usersRepository.save(currentUser);
 
         return course;
         // check if courseID matches any of the course list IDs
@@ -130,6 +134,7 @@ public class CourseService {
 
         currentUser.getUserCourses().remove(course);
         authService.saveUsers();
+        usersRepository.save(currentUser);
         return true;
 
         // if not, return NULL (course not found)

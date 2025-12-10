@@ -21,7 +21,7 @@ public class AuthService
 {
     UsersRepository usersRepository;
     // In Mongo now
-    private final List<User> users; //new ArrayList<>();
+    private final List<User> users = null; //new ArrayList<>();
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private File dataFile;
@@ -35,9 +35,6 @@ public class AuthService
     @Getter
     private User currentUser;
 
-    public AuthService() {
-        users = usersRepository.findAll();
-    }
 
     // Runs on startup
     @PostConstruct
@@ -54,7 +51,9 @@ public class AuthService
 
                 // sync into the in-memory list
                 users.clear();
-                users.addAll(loaded);
+                users.addAll(usersRepository.findAll());
+                //users.addAll(loaded);
+
 
                 nextID = users.stream()
                         .mapToInt(User::getId)
@@ -114,9 +113,12 @@ public class AuthService
 
         users.add(newUser);
         saveUsers();
+        usersRepository.saveAll(users);
         nextID++;
         return newUser;
     }
+
+
     // check if username already exists, if so, return null (username taken)
     // if fine, create new user with the ID, username, passwordHash (just store the normal pwd for now)
     // lvl = 1, xp = 0 (see constructors with lombok...)

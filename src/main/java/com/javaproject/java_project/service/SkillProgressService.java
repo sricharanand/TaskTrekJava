@@ -2,6 +2,7 @@ package com.javaproject.java_project.service;
 
 import com.javaproject.java_project.model.SkillProgress;
 import com.javaproject.java_project.model.User;
+import com.javaproject.java_project.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ public class SkillProgressService {
 
     @Autowired
     AuthService authService;
+
+    UsersRepository usersRepository;
 
     // Level names with academic/achievement theme
     private static final String[] LEVEL_NAMES = {
@@ -165,7 +168,7 @@ public class SkillProgressService {
             SkillProgress newProgress = initializeSkillProgress(courseName);
             skillProgressMap.put(courseName, newProgress);
         }
-
+        usersRepository.save(currentUser);
         return skillProgressMap.get(courseName);
     }
 
@@ -230,7 +233,7 @@ public class SkillProgressService {
                 "leveledUp", userLevel > oldUserLevel,
                 "levelsGained", userLevel - oldUserLevel
         ));
-
+        usersRepository.save(currentUser);
         return result;
     }
 
@@ -350,7 +353,11 @@ public class SkillProgressService {
             return false;
         }
 
-        return currentUser.getSkillProgress().remove(courseName) != null;
+        boolean removeSuccess = (currentUser.getSkillProgress().remove(courseName) != null);
+        if (removeSuccess){
+            usersRepository.save(currentUser);
+        }
+        return removeSuccess;
     }
 
     /**
