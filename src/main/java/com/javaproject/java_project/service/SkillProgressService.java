@@ -53,9 +53,8 @@ public class SkillProgressService {
      */
     public int calculateLevel(int totalXp) {
         for (int i = XP_THRESHOLDS.length - 1; i >= 0; i--) {
-            if (totalXp >= XP_THRESHOLDS[i]) {
+            if (totalXp >= XP_THRESHOLDS[i])
                 return i + 1;
-            }
         }
         return 1; // Default to level 1
     }
@@ -66,7 +65,7 @@ public class SkillProgressService {
      * @return The name of the level
      */
     public String getLevelName(int level) {
-        if (level < 1 || level > 10) {
+        if (level < 1) {
             return "Unknown";
         }
         return LEVEL_NAMES[level - 1];
@@ -91,9 +90,8 @@ public class SkillProgressService {
     public SkillProgress getOrCreateSkillProgress(String courseName) {
         User currentUser = authService.getCurrentUser();
 
-        if (currentUser == null) {
+        if (currentUser == null)
             return null;
-        }
 
         Map<String, SkillProgress> skillProgressMap = currentUser.getSkillProgress();
 
@@ -120,9 +118,8 @@ public class SkillProgressService {
         }
 
         // Validate xpAmount
-        if (xpAmount <= 0) {
-            return null; // Invalid XP amount
-        }
+        if (xpAmount <= 0)
+            return null;
 
         SkillProgress progress = getOrCreateSkillProgress(courseName);
 
