@@ -106,7 +106,7 @@ src/
 | POST | /auth/login | Login existing user |
 | GET | /api/courses | Show all courses of the logged-in user |
 | GET | /api/courses/{id} | Shows all tasks w.r.t a course |
-| POST | /api/courses/{id} | Create a task |
+| POST | /api/courses/{id}/tasks | Create a task |
 | PATCH | /api/courses/{courseid}/tasks/{taskid} | Edit details of a task |
 | DELETE | /api/courses/{courseid}/tasks/{taskid} | Delete a task |
 | POST | /api/courses/{courseid}/tasks/{taskid}/complete | Mark a task as complete and award XP |
