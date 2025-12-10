@@ -1,6 +1,7 @@
 package com.javaproject.java_project.service;
 
 import com.javaproject.java_project.model.User;
+import com.javaproject.java_project.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,9 @@ import java.util.Optional;
 @Service
 public class AuthService
 {
-    // In memory Database for now, Mongo later
-    private final List<User> users = new ArrayList<>();
+    UsersRepository usersRepository;
+    // In Mongo now
+    private final List<User> users; //new ArrayList<>();
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private File dataFile;
@@ -32,6 +34,10 @@ public class AuthService
     // currently logged-in user (set on successful login)
     @Getter
     private User currentUser;
+
+    public AuthService() {
+        users = usersRepository.findAll();
+    }
 
     // Runs on startup
     @PostConstruct
