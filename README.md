@@ -21,7 +21,7 @@ Users can:-
 
 - Framework: Spring Boot
 
-- Database: MongoDB (to be integrated)
+- Database: MongoDB
 
 - Tools: Maven, Postman
 
@@ -31,9 +31,9 @@ src/
 
 ├── controller/
 
-│   ├── AuthController.java
+│   └── AuthController.java
 
-│   ├── CourseController.java
+│   └── CourseController.java
 
 │   └── TaskController.java
 
@@ -43,9 +43,9 @@ src/
 
 │   ├── AuthService.java
 
-│   ├── CourseService.java
+│   └── CourseService.java
 
-│   ├── TaskService.java
+│   └── TaskService.java
 
 │   └── SkillProgressService.java
 
@@ -53,9 +53,9 @@ src/
 
 ├── model/
 
-│   ├── User.java
+│   └── User.java
 
-│   ├── Course.java
+│   └── Course.java
 
 │   └── Task.java
 
@@ -67,17 +67,21 @@ src/
 
 │   └── AssignmentTask.java
 
-│   ├── Achievement.java
+│   └── Achievement.java
 
-│   ├── SkillProgress.java
+│   └── SkillProgress.java
 
 │
 
+├── repository/
+
+│   └── UsersRepository.java
+
 └── request/
 
-│   ├── LoginRequest.java
+│   └── LoginRequest.java
 
-│   ├── SignupRequest.java
+│   └── SignupRequest.java
 
 │   └── NewCourseRequest.java
 
