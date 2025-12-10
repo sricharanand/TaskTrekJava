@@ -105,7 +105,10 @@ src/
 | POST | /auth/register	| Register a new user |
 | POST | /auth/login | Login existing user |
 | GET | /api/courses | Show all courses of the logged-in user |
-| GET | /api/courses/{id} | Shows all tasks w.r.t a course |
+| POST | /api/courses | Create a new course under the user |
+| PUT | /api/courses/{id} | Rename course of ID in path |
+| DELETE | /api/courses/{id} | Delete course of ID in path |
+| GET | /api/courses/{id} | Shows all tasks of a course |
 | POST | /api/courses/{id}/tasks | Create a task |
 | PATCH | /api/courses/{courseid}/tasks/{taskid} | Edit details of a task |
 | DELETE | /api/courses/{courseid}/tasks/{taskid} | Delete a task |
