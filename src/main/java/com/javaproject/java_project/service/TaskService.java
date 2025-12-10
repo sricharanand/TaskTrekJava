@@ -2,6 +2,7 @@ package com.javaproject.java_project.service;
 
 import com.javaproject.java_project.model.*;
 import com.javaproject.java_project.repository.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -13,6 +14,7 @@ public class TaskService
 {
     private int nextID = 1; // autoincrement this for next tasks
 
+    @Autowired
     UsersRepository usersRepository;
 
     // we use AuthService to know which user is currently logged in
@@ -85,7 +87,6 @@ public class TaskService
 
         task.configureXp();
         currentCourse.getTasks().add(task);
-        authService.saveUsers();
         usersRepository.save(currentUser);
         return task;
     }
@@ -139,7 +140,6 @@ public class TaskService
         if (newDeadline != null)
             taskToEdit.setDeadline(newDeadline);
 
-        authService.saveUsers();
         usersRepository.save(currentUser);
         return taskToEdit;
     }
@@ -163,7 +163,6 @@ public class TaskService
             return false;
 
         currentCourse.getTasks().remove(taskToDelete);
-        authService.saveUsers();
         usersRepository.save(currentUser);
         return true;
     }
@@ -176,8 +175,6 @@ public class TaskService
         User currentUser = authService.getCurrentUser();
         if(currentUser == null)
             return false;
-
-        LocalDate today = LocalDate.now();
 
         if (courseService.getCourseByID(courseID) == null)
             return false;
@@ -216,7 +213,6 @@ public class TaskService
 
         // award XP based on task difficulty computed earlier
         skillProgressService.awardTaskCompletionXp(courseName, task.getBaseXP(), task.getMultiplier(), currentUser.getStreak());
-        authService.saveUsers();
         usersRepository.save(currentUser);
 
         return true;
