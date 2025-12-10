@@ -2,6 +2,7 @@ package com.javaproject.java_project.service;
 
 import com.javaproject.java_project.model.Course;
 import com.javaproject.java_project.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CourseService {
     private final AuthService authService;
 
     List<Course> courses;
+    @Autowired
     UsersRepository usersRepository;
 
     public CourseService(AuthService authService)
@@ -57,7 +59,6 @@ public class CourseService {
                 .build();
 
         courses.add(newCourse);
-        authService.saveUsers();
         usersRepository.save(currentUser);
 
         return newCourse;
@@ -108,7 +109,6 @@ public class CourseService {
             return null;
 
         course.setCourseName(newCourseName);
-        authService.saveUsers();
         usersRepository.save(currentUser);
 
         return course;
@@ -133,7 +133,6 @@ public class CourseService {
             return false;
 
         currentUser.getUserCourses().remove(course);
-        authService.saveUsers();
         usersRepository.save(currentUser);
         return true;
 
