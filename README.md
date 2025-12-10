@@ -89,15 +89,13 @@ src/
 
 ## Features
 
-- Auth system (register + login) tested on Postman
+- Auth system (register + login) with state maintained and Passwords hashed using BCryptPasswordEncoder
  
 - Course CRUD (create, rename, delete, view)
 
 - Task CRUD + Complete, with gamification through XP, levels, and day streaks
 
-- Controller–Service separation with in-memory storage
-
-- Auth state maintained through AuthService. Passwords hashed using BCryptPasswordEncoder
+- Controller–Service separation with database storage through MongoDB
 
 
 ## API Endpoints Summary
